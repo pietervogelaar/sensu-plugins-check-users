@@ -1,0 +1,45 @@
+#!/bin/bash
+
+while test -n "$1"; do
+    case "$1" in
+        -w)
+            warning=$2
+            shift
+            ;;
+        -c)
+            critical=$2
+            shift
+            ;;
+        -h)
+            help=1
+            shift
+            ;;
+        *)
+            echo "Unknown argument: $1"
+            exit 3
+            ;;
+    esac
+    shift
+done
+
+if [ ! -z $help ] && [ "$help" -gt "0" ]; then
+    echo 'Usage: check-users (options)'
+    echo '    -c, Critical if larger than value'
+    echo '    -w, Warning if larger than value'
+    exit 0
+fi
+
+user_count=$(users | wc -w | xargs);
+
+if [ ! -z $critical ] && [ "$user_count" -gt "$critical" ]; then
+    echo "$user_count logged in users"
+    exit 2
+elif [ ! -z $warning ] && [ "$user_count" -gt "$warning" ]; then
+    echo "$user_count logged in users"
+    exit 1
+else
+    echo "$user_count logged in users"
+    exit 0
+fi
+
+
