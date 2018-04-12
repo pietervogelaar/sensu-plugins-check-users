@@ -1,4 +1,18 @@
 #!/bin/bash
+#
+#  check-users
+#
+# DESCRIPTION:
+#   Sensu plugin that checks the logged in user count
+#
+# PLATFORMS:
+#   Linux
+#
+# LICENSE:
+#   Copyright 2018 Pieter Vogelaar
+#   Released under the same terms as Sensu (the MIT license); see LICENSE
+#   for details.
+#
 
 while test -n "$1"; do
     case "$1" in
@@ -41,5 +55,3 @@ else
     echo "$user_count logged in users"
     exit 0
 fi
-
-
